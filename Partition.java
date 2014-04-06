@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class Partition {
     public static void main(String[] args) {
+
+	int sum = 0;
 	
 	try {
 
@@ -19,15 +21,17 @@ public class Partition {
 
 		// get number from user
 		int number = Integer.parseInt(scan.nextLine());
+
+		// add number to the total sum
+		sum += number;
 		
 		// insert value into the multiset
 		values[i] = number;
 	    }
 	    
+	    System.out.println("Sum: " + sum);
+	    output(values);
 
-	    output();
-	    System.out.println("\n\n");
-	    output(values, values);
 	    // close the scanner
 	    scan.close();
 	}
@@ -40,6 +44,17 @@ public class Partition {
 
     public static void output() {
 	System.out.println("There is no satisfying partition");
+    }
+
+    public static void output(int[] values) {
+	String output = "{ ";
+	for(int i : values) {
+	    output += i + " ";
+	}
+
+	output += "}";
+
+	System.out.println(output);
     }
 
     public static void output(int[] first, int[] second) {
