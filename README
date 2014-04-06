@@ -1,15 +1,17 @@
 CIS 263 - Partition Problem
 
-Let n be the number of integers in the multiset. The value of n will be in the first line of the input file.
+Let n be the number of integers in the multiset. The value of n will be the first line of the input file.
 The following n lines will contain the n integers in the multiset. Every line will contain a single value.
+
 Sample Problems:
 1 1 2
-The input file would be 
+The input file would be:
 3
 1
 1
 2
 In this case the answer should be yes: { 1 1 } { 2 }
+
 Another sample problem:
 1 1 4
 The input file would be:
@@ -18,4 +20,5 @@ The input file would be:
 1
 4
 The answer should be: There is no satisfying partition.
+
 Program should be solved one instance at a time.
