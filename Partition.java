@@ -1,77 +1,97 @@
 import java.util.Scanner;
 
 public class Partition {
-    public static void main(String[] args) {
 
-	int sum = 0;
+    /** integer array that stores values */
+    private int[] values;
+
+    /** size of the set */
+    private int size;
+
+    /** sum of the set */
+    private int sum;
+
+    /** scanner used to set values */
+    private Scanner scan;
+
+    public Partition() {
 	
-	try {
+	// new scanner
+	scan = new Scanner(System.in);
 
-	    // new scanner
-	    Scanner scan = new Scanner(System.in);
-	    
-	    // length of the multiset
-	    int size = Integer.parseInt(scan.nextLine());
+	// get the size of the set
+	size = setSize();
 
-	    // new multiset
-	    int[] values = new int[size];
-	    
-	    // fill the multiset with values
-	    for(int i = 0; i < values.length; i++) {
+	// fill the array
+	values = setValues(size);
 
-		// get number from user
-		int number = Integer.parseInt(scan.nextLine());
+	// set the sum of the array
+	sum = setSum(values);
 
-		// add number to the total sum
-		sum += number;
-		
-		// insert value into the multiset
-		values[i] = number;
-	    }
-	    
-	    System.out.println("Sum: " + sum);
-	    output(values);
+	output();
+	output(values, values);
 
-	    // close the scanner
-	    scan.close();
+	// close the scanner
+	scan.close();
+    }
+
+    public static void main(String[] args) {
+	new Partition();
+    }
+
+    /** */
+    private int setSize() {
+	return Integer.parseInt(scan.nextLine());
+    }
+
+    /** fill the set with integers */
+    private int[] setValues(int size) {
+	
+	// set to return
+	int[] set = new int[size];
+	
+	// fill the array
+	for(int i = 0; i < set.length; i++) {
+	    set[i] = Integer.parseInt(scan.nextLine());
 	}
 
-	// something went wrong
-	catch (Exception e) {
-	    System.out.println("Error: " + e);
-	}    
+	return set;
     }
 
-    public static void output() {
-	System.out.println("There is no satisfying partition");
+    /** method sets the sum of the array */
+    private int setSum(int[] values) {
+	int total = 0;
+
+	// loop through each value
+	for(int i : values) { 
+	    total += i;
+	}
+	
+	return total;
     }
 
-    public static void output(int[] values) {
-	String output = "{ ";
+    /** method returns a string of an integer array */
+    private String setString(int[] values) {
+	String set = "{ ";
+	
+	// loop through each value and add to string
 	for(int i : values) {
-	    output += i + " ";
+	    set += i + " ";
 	}
-
-	output += "}";
-
-	System.out.println(output);
+	return set + "}";
     }
 
-    public static void output(int[] first, int[] second) {
-	String output = "{ ";
-
-	for(int i : first) {
-	    output += i + " ";
-        }
-
-	output += "} { ";
-
-	for(int i : second) {
-	    output += i + " ";
-	}
-
-	output += "}";
-
-	System.out.println(output);
+    /** method prints out results */
+    private void output() {
+	String message = "There is no satisfying partition.";
+	System.out.println(message);
     }
+
+    /** overloaded output method that displays the two sets */
+    private void output(int[] setOne, int[] setTwo) {
+	
+	// display two sets in the string
+	System.out.println(setString(setOne) + setString(setTwo));
+    }
+
 }
