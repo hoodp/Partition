@@ -83,15 +83,17 @@ public class Partition {
 
     /** method prints out results */
     private void output() {
-	String message = "There is no satisfying partition.";
+	String message = "Output: False\nThere is no satisfying partition.";
 	System.out.println(message);
     }
 
     /** overloaded output method that displays the two sets */
     private void output(int[] setOne, int[] setTwo) {
 	
-	// display two sets in the string
-	System.out.println(setString(setOne) + setString(setTwo));
+	// message to display
+	String message = "Output: True\n" + setString(setOne) + setString(setTwo);
+
+	System.out.println(message);
     }
 
 }
