@@ -28,9 +28,19 @@ public class Partition {
 	// set the sum of the array
 	sum = setSum(values);
 
-	output();
-	output(values, values);
+	// check if the sum is even or odd
+	boolean even = checkSum(sum);
 
+	// if even find two sets
+	if(even) {
+
+	    // divide sum by to, becomes new value to search for
+	    sum /= 2;
+	    System.out.println(sum);
+	}
+	else {
+	    output();
+	}
 	// close the scanner
 	scan.close();
     }
@@ -79,6 +89,11 @@ public class Partition {
 	    set += i + " ";
 	}
 	return set + "}";
+    }
+
+    /** method checks if sum if odd */
+    private boolean checkSum(int sum) {
+	return sum % 2 == 0;
     }
 
     /** method prints out results */
