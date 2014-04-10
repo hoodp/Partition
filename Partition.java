@@ -15,6 +15,12 @@ public class Partition {
 
 	/** sum of the set */
 	private int sum;
+	
+	/** valid parition used for testing */
+	public static boolean validPartition;
+	
+	/** static string used for testing */
+	public static String sets;
 
 	public static void main(String[] args) {
 
@@ -43,6 +49,9 @@ public class Partition {
 	}
 
 	public Partition(int[] set) {
+		
+		// set initial value to false
+		validPartition = false;
 
 		// calculate the sum of the array
 		sum = setSum(set);
@@ -64,6 +73,7 @@ public class Partition {
 				
 				// partition is valid - display result
 				output(set);
+				validPartition = true;
 			}
 			else {
 				
@@ -121,8 +131,6 @@ public class Partition {
 			}
 		}
 
-		// display the partition array
-		display(part);
 		return part;
 	}
 
@@ -140,21 +148,6 @@ public class Partition {
 		
 		// return updated array
 		return part;
-	}
-
-	/** method displayed 2d array of boolean type */
-	private void display(boolean[][] part) {
-
-		// string output
-		String output = "";
-		for (int i = 0; i < maxRows; i++) {
-			for (int j = 0; j < maxCols; j++) {
-				output += part[i][j] + "\t";
-			}
-			output += "\n";
-		}
-
-		System.out.println(output);
 	}
 
 	/** method checks if array can be split into two arrays */
@@ -227,6 +220,8 @@ public class Partition {
 		}
 
 		message += "}";
+		
+		sets = message;
 
 		System.out.println(message);
 	}
