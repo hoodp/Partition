@@ -6,45 +6,47 @@ public class Partition {
 
 	/** 2d array of booleans */
 	private boolean[][] partition;
-	
+
 	/** max number of rows for boolean array */
 	private int maxRows;
-	
+
 	/** max number of cols in boolean array */
 	private int maxCols;
-	
-	/** array of the set of numbers */
-	private int[] set;
-	
+
 	/** sum of the set */
 	private int sum;
 
 	public static void main(String[] args) {
 
+		// scanner for reading input
 		Scanner scan = new Scanner(System.in);
 
+		System.out.println("Size:");
 		int size = scan.nextInt();
-		int[] set = new int[size];
+		
+		// new array based on first input
+		int[] values = new int[size];
 
-		for (int i = 0; i < set.length; i++) {
-			set[i] = scan.nextInt();
+		System.out.println("Values:");
+		for (int i = 0; i < values.length; i++) {
+			values[i] = scan.nextInt();
 		}
 
+		// close the scanner
 		scan.close();
 
-		new Partition(set);
+		new Partition(values);
 	}
 
 	public Partition(int[] set) {
 
-		// int array of values
-		this.set = set;
-
 		// calculate the sum of the array
 		sum = setSum(set);
-		
+
+		// max number of rows for 2d boolean array
 		maxRows = sum / 2 + 1;
-		
+
+		// max number of columns for 2d boolean array
 		maxCols = set.length + 1;
 
 		// if sum is even fill the boolean array
@@ -55,12 +57,18 @@ public class Partition {
 
 			// check if partition is valid
 			if (validPartition()) {
+				
+				// partition is valid - display result
 				output(set);
 			}
 			else {
+				
+				// cannot be partitioned
 				output();
 			}
 		}
+		
+		// sum of the array is not even
 		else {
 			output();
 		}
@@ -79,17 +87,22 @@ public class Partition {
 			part[0][i] = true;
 		}
 
+		// fill rest of the array
 		for (int i = 1; i < maxRows; i++) {
 			for (int j = 1; j < maxCols; j++) {
+				
+				// equal to previous column
 				part[i][j] = part[i][j - 1];
 
 				// if part[i][j] is true, set rest of row true
 				if (part[i][j]) {
 					part =  fillRow(part, i, j, maxCols);
+					
+					// break to next row
 					break;
 				}
 
-				// check if i is greater arr[j-1]
+				// check if i is greater than previous number in array
 				if (i >= set[j - 1]) {
 
 					// index of i minus the previous value in the set
@@ -104,6 +117,7 @@ public class Partition {
 			}
 		}
 
+		// display the partition array
 		display(part);
 		return part;
 	}
@@ -114,15 +128,19 @@ public class Partition {
 	}
 
 	/** method fills rest of row to true */
-	private boolean [][] fillRow(boolean[][] part, int row, int col, int maxCol) {
+	private boolean [][] fillRow(boolean[][] part, int row, int col,
+			int maxCol) {
 		for (int i = col; i < maxCol; i++) {
 			part[row][i] = true;
 		}
+		
+		// return updated array
 		return part;
 	}
 
+	/** method displayed 2d array of boolean type */
 	private void display(boolean[][] part) {
-		
+
 		// string output
 		String output = "";
 		for (int i = 0; i < maxRows; i++) {
@@ -131,7 +149,7 @@ public class Partition {
 			}
 			output += "\n";
 		}
-		
+
 		System.out.println(output);
 	}
 
@@ -154,12 +172,13 @@ public class Partition {
 
 	/** method returns output of invalid set */
 	private void output() {
-		String message = "Output: False\nThere is no satisfying partition.";
+		String message = "Output: False\nThere is no satisfying" +
+				" partition.";
 		System.out.println(message);
 	}
-	
 
-        /** method calculates sum of an integer arraylist */
+
+	/** method calculates sum of an integer arraylist */
 	private int calcSum(ArrayList<Integer> values) {
 		int total = 0;
 		for (Integer i : values) {
@@ -171,51 +190,40 @@ public class Partition {
 	/** method returns output of valid set */
 	private void output(int[] values) {
 
-		// value being searched for
-		int searchValue = sum / 2;
-		
-		// maximum length of new set
-		int maxLength = values.length / 2;
-		
 		String message = "Output: True\n{ ";
-		
+
+		// sort the values in the array
 		Arrays.sort(values);
-		
+
 		ArrayList<Integer> setOne = new ArrayList<Integer>();
 		ArrayList<Integer> setTwo = new ArrayList<Integer>();
-		
+
+		// add numbers in descending order
 		for (int i = values.length - 1; i >= 0; i--) {
+			
+			// add to first set if array is equal or less than second
 			if (calcSum(setOne) <= calcSum(setTwo)) {
 				setOne.add(values[i]);
 			}
+			
+			// first array's sum is greater than seconds
 			else {
 				setTwo.add(values[i]);
 			}
 		}
-		
+
 		for (Integer i : setOne) {
 			message += i + " ";
 		}
-		
+
 		message += "} { ";
-		
+
 		for (Integer i : setTwo) {
 			message += i + " ";
 		}
-		
+
 		message += "}";
-		
+
 		System.out.println(message);
-	}
-
-	/** method returns string of integer array */
-	private String setString(int[] values) {
-		String output = "{ " ;
-		for (int i : values) {
-			output += i + " ";
-		}
-
-		// return string with ending bracket
-		return output + "} ";
 	}
 }
