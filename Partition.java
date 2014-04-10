@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Partition {
 
-	/** 2d array of booleans */
+	/** 2d boolean array */
 	private boolean[][] partition;
 
 	/** max number of rows for boolean array */
@@ -22,12 +22,16 @@ public class Partition {
 		Scanner scan = new Scanner(System.in);
 
 		System.out.println("Size:");
+
+		// get size of the array
 		int size = scan.nextInt();
 		
 		// new array based on first input
 		int[] values = new int[size];
 
 		System.out.println("Values:");
+
+		// loop fills every value in the array
 		for (int i = 0; i < values.length; i++) {
 			values[i] = scan.nextInt();
 		}
@@ -80,7 +84,7 @@ public class Partition {
 		// boolean array of possible values
 		boolean part[][] = new boolean[maxRows][maxCols];
 
-		/** set first row to true */
+		// set the first row to true
 		for (int i = 0; i < maxCols; i++) {
 
 			// first row
