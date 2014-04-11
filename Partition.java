@@ -15,36 +15,53 @@ public class Partition {
 
 	/** sum of the set */
 	private int sum;
-	
+
+	/** string that keeps track of original input */
+        private static String input = "{ ";
+
 	public static void main(String[] args) {
 
-		// scanner for reading input
-		Scanner scan = new Scanner(System.in);
+		try {
+			// scanner for reading input
+			Scanner scan = new Scanner(System.in);
 
-		System.out.println("Size:");
+			System.out.print("Size: ");
 
-		// get size of the array
-		int size = scan.nextInt();
-		
-		// new array based on first input
-		int[] values = new int[size];
+			// get size of the array
+			int size = scan.nextInt();
 
-		System.out.println("Values:");
+			if (size > 31 || size < 2) {
+				scan.close();
+				throw new IndexOutOfBoundsException("Size" +
+						" must be < 31 and > 2.");
+			}
 
-		// loop fills every value in the array
-		for (int i = 0; i < values.length; i++) {
-			values[i] = scan.nextInt();
+			// new array based on first input
+			int[] values = new int[size];
+
+			// loop fills every value in the array
+			for (int i = 0; i < values.length; i++) {
+				String line = "Value[" + i +  "]: ";
+				System.out.print(line);
+				int inValue = scan.nextInt();
+				values[i] = inValue;
+				input += i + " ";
+			}
+
+			input += "}";
+			// close the scanner
+			scan.close();
+
+			new Partition(values);
 		}
-
-		// close the scanner
-		scan.close();
-
-		new Partition(values);
+		catch (IndexOutOfBoundsException e) {
+			System.out.println("Error: " + e);
+		}
 	}
 
 	public Partition(int[] set) {
-		
-	  	// calculate the sum of the array
+
+		// calculate the sum of the array
 		sum = setSum(set);
 
 		// max number of rows for 2d boolean array
@@ -61,17 +78,19 @@ public class Partition {
 
 			// check if partition is valid
 			if (validPartition()) {
-				
+
 				// partition is valid - display result
 				output(set);
+
+				displayResults();
 			}
 			else {
-				
+
 				// cannot be partitioned
 				output();
 			}
 		}
-		
+
 		// sum of the array is not even
 		else {
 			output();
@@ -94,14 +113,14 @@ public class Partition {
 		// fill rest of the array
 		for (int i = 1; i < maxRows; i++) {
 			for (int j = 1; j < maxCols; j++) {
-				
-			        // equal to previous column
+
+				// equal to previous column
 				part[i][j] = part[i][j - 1];
 
 				// if part[i][j] is true, set rest of row true
 				if (part[i][j]) {
 					part =  fillRow(part, i, j, maxCols);
-					
+
 					// break to next row
 					break;
 				}
@@ -135,7 +154,7 @@ public class Partition {
 		for (int i = col; i < maxCol; i++) {
 			part[row][i] = true;
 		}
-		
+
 		// return updated array
 		return part;
 	}
@@ -159,7 +178,8 @@ public class Partition {
 
 	/** method returns output of invalid set */
 	private void output() {
-		String message = "Output: False\nThere is no satisfying" +
+	        String message = "\nInput: " + input + " \n";
+		message = "Output: False\nThere is no satisfying" +
 				" partition.";
 		System.out.println(message);
 	}
@@ -177,7 +197,7 @@ public class Partition {
 	/** method returns output of valid set */
 	private void output(int[] values) {
 
-		String message = "Output: True\n{ ";
+		String message = "\nInput: " + input + "\nOutput: True { ";
 
 		// sort the values in the array
 		Arrays.sort(values);
@@ -187,12 +207,12 @@ public class Partition {
 
 		// add numbers in descending order
 		for (int i = values.length - 1; i >= 0; i--) {
-			
+
 			// add to first set if array is equal or less than second
 			if (calcSum(setOne) <= calcSum(setTwo)) {
 				setOne.add(values[i]);
 			}
-			
+
 			// first array's sum is greater than seconds
 			else {
 				setTwo.add(values[i]);
@@ -212,5 +232,21 @@ public class Partition {
 		message += "}";
 
 		System.out.println(message);
+	}
+
+	/** method displays the boolean array */
+	private void displayResults() {
+		String display = "";
+
+		int rowLength = partition.length;
+		int colLength = partition[0].length;
+
+		for (int i = 0; i < rowLength; i++) {
+			for (int j = 0; j < colLength; j++) {
+				display += partition[i][j] + "\t";
+			}
+			display += "\n";
+		}
+		System.out.println(display);
 	}
 }
