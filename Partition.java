@@ -16,12 +16,6 @@ public class Partition {
 	/** sum of the set */
 	private int sum;
 	
-	/** valid parition used for testing */
-	public static boolean validPartition;
-	
-	/** static string used for testing */
-	public static String sets;
-
 	public static void main(String[] args) {
 
 		// scanner for reading input
@@ -50,10 +44,7 @@ public class Partition {
 
 	public Partition(int[] set) {
 		
-		// set initial value to false
-		validPartition = false;
-
-		// calculate the sum of the array
+	  	// calculate the sum of the array
 		sum = setSum(set);
 
 		// max number of rows for 2d boolean array
@@ -73,7 +64,6 @@ public class Partition {
 				
 				// partition is valid - display result
 				output(set);
-				validPartition = true;
 			}
 			else {
 				
@@ -105,7 +95,7 @@ public class Partition {
 		for (int i = 1; i < maxRows; i++) {
 			for (int j = 1; j < maxCols; j++) {
 				
-				// equal to previous column
+			        // equal to previous column
 				part[i][j] = part[i][j - 1];
 
 				// if part[i][j] is true, set rest of row true
@@ -220,8 +210,6 @@ public class Partition {
 		}
 
 		message += "}";
-		
-		sets = message;
 
 		System.out.println(message);
 	}
