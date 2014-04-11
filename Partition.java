@@ -17,7 +17,7 @@ public class Partition {
 	private int sum;
 
 	/** string that keeps track of original input */
-        private static String input = "{ ";
+	private static String input = "{ ";
 
 	public static void main(String[] args) {
 
@@ -45,7 +45,7 @@ public class Partition {
 				System.out.print(line);
 				int inValue = scan.nextInt();
 				values[i] = inValue;
-				input += i + " ";
+				input += inValue + " ";
 			}
 
 			input += "}";
@@ -178,7 +178,7 @@ public class Partition {
 
 	/** method returns output of invalid set */
 	private void output() {
-	        String message = "\nInput: " + input + " \n";
+		String message = "\nInput: " + input + " \n";
 		message = "Output: False\nThere is no satisfying" +
 				" partition.";
 		System.out.println(message);
