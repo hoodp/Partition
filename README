@@ -1,4 +1,5 @@
 CIS 263 - Partition Problem
+This was completed in April 2014 as part of a Data Structures and Algorithms course.
 
 Let n be the number of integers in the multiset. The value of n will be the first line of the input file.
 The following n lines will contain the n integers in the multiset. Every line will contain a single value.
